@@ -1,0 +1,465 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+  
+<title>Starter app in 3D - 4.29</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.29/"></script>
+
+    <style>
+      html,
+      body1,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+    </style>
+    <script>
+	let popup_template = {
+					title: "{Name}",
+					content: "This {type} at <b>{Location}</b>."
+				};
+
+    const ax = 106.70566333523865
+    const ay = 10.775510841876894
+    const bx = 106.70534111130674
+    const by = 10.775655309252581
+    const cx = 106.7053616338727
+    const cy = 10.775790105351852
+    const dx = 106.70544568864548
+    const dy = 10.775883344935465
+    const ex = 106.70576732584418
+    const ey = 10.7757404292826
+
+    const jsondata = {
+        polygons: [
+            {
+                type: "polygon",
+                rings: [
+                    [ax, ay, 0], // A
+                    [bx, by, 0], // B
+                    [cx, cy, 0], // C
+                    [dx, dy, 0], // D
+                    [ex, ey, 0], // E
+                    [ax, ay, 0], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [255, 0, 0, 0.7],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [ax, ay, 0], // A
+                    [bx, by, 0], // B
+                    [bx, by, 2], // xB
+                    [ax, ay, 2], // xA
+                    [ax, ay, 0], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [bx, by, 0], // B
+                    [cx, cy, 0], // C
+                    [cx, cy, 2], // xC
+                    [bx, by, 2], // xB
+                    [cx, cy, 0], // C
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [cx, cy, 0], // C
+                    [dx, dy, 0], // D
+                    [dx, dy, 2], // xD
+                    [cx, cy, 2], // xC
+                    [cx, cy, 0], // C
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [dx, dy, 0], // D
+                    [ex, ey, 0], // E
+                    [ex, ey, 2], // xE
+                    [dx, dy, 2], // xD
+                    [dx, dy, 0], // D
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [ex, ey, 0], // E
+                    [ax, ay, 0], // A
+                    [ax, ay, 2], // xA
+                    [ex, ey, 2], // xE
+                    [ex, ey, 0], // E
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [ax, ay, 2], // A
+                    [bx, by, 2], // B
+                    [cx, cy, 2], // C
+                    [dx, dy, 2], // D
+                    [ex, ey, 2], // E
+                    [ax, ay, 2], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: 'red',
+                    outline: {
+                        color: [128, 128, 128, 0.4],
+                        width: 1
+                    }
+                }
+            },
+        ]
+    }
+
+    const ax1 = 106.70567783724071
+    const ay1 = 10.775542328329115
+    const bx1 = 106.70539459177787
+    const by1 = 10.775668606042391
+    const cx1 = 106.7054709915156
+    const cy1 = 10.775838659517067
+    const dx1 = 106.70575483942771
+    const dy1 = 10.775713609270882
+    const jsondata2 = {
+        polygons: [
+            {
+                type: "polygon",
+                rings: [
+                    [ax1, ay1, 38], // A
+                    [bx1, by1, 38], // B
+                    [cx1, cy1, 38], // C
+                    [dx1, dy1, 38], // D
+                    [ax1, ay1, 38], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [255, 0, 0, 0.7],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [ax1, ay1, 38], // A
+                    [bx1, by1, 38], // B
+                    [bx1, by1, 40], // xB
+                    [ax1, ay1, 40], // xA
+                    [ax1, ay1, 38], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [bx1, by1, 38], // B
+                    [cx1, cy1, 38], // C
+                    [cx1, cy1, 40], // xC
+                    [bx1, by1, 40], // xB
+                    [bx1, by1, 38], // B
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [cx1, cy1, 38], // C
+                    [dx1, dy1, 38], // D
+                    [dx1, dy1, 40], // xD
+                    [cx1, cy1, 40], // C
+                    [cx1, cy1, 38], // C
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [dx1, dy1, 38], // D
+                    [ax1, ay1, 38], // A
+                    [ax1, ay1, 40], // A
+                    [dx1, dy1, 40], // D
+                    [dx1, dy1, 38], // D
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [ax1, ay1, 40], // A
+                    [bx1, by1, 40], // B
+                    [cx1, cy1, 40], // C
+                    [dx1, dy1, 40], // D
+                    [ax1, ay1, 40], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: 'red',
+                    outline: {
+                        color: [128, 128, 128, 0.4],
+                        width: 1
+                    }
+                }
+            },
+        ]
+    }
+
+    const bottomLeftx1 = 106.70548509406767
+    const bottomLefty1 = 10.775980158601755
+    const bottomLeftx2 = 106.70538970015158
+    const bottomLefty2 = 10.775907099017731
+    const bottomLeftx3 = 106.70568382375312
+    const bottomLefty3 = 10.775778688258002
+
+    const bottomLeft = {
+        polygons: [
+            {
+                type: "polygon",
+                rings: [
+                    [bottomLeftx2, bottomLefty2, 0], // A
+                    [bottomLeftx1, bottomLefty1, 0], // B
+                    [bottomLeftx3, bottomLefty3, 0], // C
+                    [bottomLeftx2, bottomLefty2, 0], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [255, 0, 0, 0.7],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [bottomLeftx2, bottomLefty2, 0], // A
+                    [bottomLeftx1, bottomLefty1, 0], // B
+                    [bottomLeftx1, bottomLefty1, 2], // xB
+                    [bottomLeftx2, bottomLefty2, 2], // xA
+                    [bottomLeftx2, bottomLefty2, 0], // A
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [bottomLeftx1, bottomLefty1, 0], // B
+                    [bottomLeftx3, bottomLefty3, 0], // C
+                    [bottomLeftx3, bottomLefty3, 2], // xC
+                    [bottomLeftx1, bottomLefty1, 2], // xB
+                    [bottomLeftx1, bottomLefty1, 0], // B
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+            {
+                type: "polygon",
+                rings: [
+                    [bottomLeftx3, bottomLefty3, 0], // C
+                    [bottomLeftx2, bottomLefty2, 0], // A
+                    [bottomLeftx2, bottomLefty2, 2], // xA
+                    [bottomLeftx3, bottomLefty3, 2], // xC
+                    [bottomLeftx3, bottomLefty3, 0], // C
+                ],
+                symbol: {
+                    type: "simple-fill",
+                    color: [128, 128, 128, 0.4],
+                    outline: {
+                        color: [255, 255, 255],
+                        width: 1
+                    }
+                }
+            },
+        ]
+    }
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/GraphicsLayer",
+		"esri/Graphic"], function(
+        Map, SceneView, GraphicsLayer, Graphic
+      ) {
+
+        const map = new Map({
+          basemap: "topo-vector",
+          ground: "world-elevation"
+        });
+
+        const view = new SceneView({
+          container: "viewDiv",
+          map: map,
+          camera: {
+            position: [106.71136192926946, 10.774846802858049, 300],
+            heading: -80,
+            tilt: 75
+          }
+        });
+        function buildData(jsondata, loop) {
+            const json = []
+            // tao 4 mat ben
+
+            for (let i = 0; i < loop; i++) {
+                jsondata.polygons.forEach(function(data){
+                    let newdata = JSON.parse(JSON.stringify(data));
+                    newdata.rings = newdata.rings.map(function(ring){
+                        return [ring[0], ring[1], ring[2] + i * 2];
+                    });
+                    json.push(newdata);
+                });
+            }
+
+            console.log("=>(index1.html:190) json", json);
+
+            // tao mat san
+            return json;
+        }
+        const dataBuild = buildData(jsondata, 20);
+        const dataBuild2 = buildData(jsondata2, 10);
+        const bottomLeftData = buildData(bottomLeft, 10)
+		var createGraphic = function (data) {
+			return new Graphic({
+				geometry: data,
+				symbol: data.symbol,
+				attributes: data,
+				popupTemplate: data.popupTemplate
+			});
+		}; 
+        var graphicsLayer = new GraphicsLayer();
+		
+		// jsondata.points.forEach(function(data){
+		// 	graphicsLayer.add(createGraphic(data));
+		// });
+		// jsondata.lines.forEach(function(data){
+		//  	graphicsLayer.add(createGraphic(data));
+		// });
+		// jsondata.polygons.forEach(function(data){
+		// 	graphicsLayer.add(createGraphic(data));
+		// });
+
+        dataBuild.forEach(function(data){
+          graphicsLayer.add(createGraphic(data));
+        });
+
+        dataBuild2.forEach(function(data){
+            graphicsLayer.add(createGraphic(data));
+        });
+
+          bottomLeftData.forEach(function(data){
+              graphicsLayer.add(createGraphic(data));
+          });
+        
+        map.add(graphicsLayer);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
