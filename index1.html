@@ -26,11 +26,6 @@
 
     </style>
     <script>
-	let popup_template = {
-        title: "{Name}",
-        content: "This {type} at <b>{Location}</b>."
-    };
-
     const ax = 106.70566333523865
     const ay = 10.775510841876894
     const bx = 106.70528706636662
@@ -830,7 +825,6 @@
 
         function buildData(jsondata, loop, properties) {
             const json = []
-            // tao 4 mat ben
 
             const startFloor = properties.startFloor || 0
 
@@ -854,43 +848,36 @@
 
             console.log("=>(index1.html:190) json", json);
 
-            // tao mat san
             return json;
         }
-        const dataBuild = buildData(jsondata, 20);
-        const dataBuild2 = buildData(jsondata2, 25);
-        const dataBuild3 = buildData(jsondata3, 7);
-        const dataBuild4 = buildData(jsondata4, 5);
-        const dataBuild5 = buildData(jsondata5, 10);
+        const dataBuild = buildData(jsondata, 20, {
+            startFloor: -3
+        });
+        const dataBuild2 = buildData(jsondata2, 25, {
+            startFloor: Number(dataBuild[dataBuild.length - 1].popupTemplate.title.replace('Tầng ', ''))
+        });
+        const dataBuild3 = buildData(jsondata3, 7, {
+            startFloor: Number(dataBuild2[dataBuild2.length - 1].popupTemplate.title.replace('Tầng ', ''))
+        });
+        const dataBuild4 = buildData(jsondata4, 5, {
+            startFloor: Number(dataBuild3[dataBuild3.length - 1].popupTemplate.title.replace('Tầng ', ''))
+        });
+        const dataBuild5 = buildData(jsondata5, 10, {
+            startFloor: Number(dataBuild4[dataBuild4.length - 1].popupTemplate.title.replace('Tầng ', ''))
+        });
 
-        const bottomLeftData = buildData(bottomLeft, 10)
-		var createGraphic = function (data) {
+        const bottomLeftData = buildData(bottomLeft, 10, {
+            startFloor: -3
+        })
+		const createGraphic = function (data) {
 			return new Graphic({
 				geometry: data,
 				symbol: data.symbol,
 				attributes: data,
 				popupTemplate: data.popupTemplate
 			});
-		}; 
-        const dataBuildFloor = buildData(jsondata, 20, {
-            startFloor: -3
-        });
-        const dataBuildFloor2 = buildData(jsondata2, 10, {
-            startFloor: Number(dataBuildFloor[dataBuildFloor.length - 1].popupTemplate.title.replace('Tầng ', ''))
-        });
-        const bottomLeftFloorData = buildData(bottomLeft, 10, {
-            startFloor: -3
-        })
-        var createGraphic = function (data) {
-            return new Graphic({
-                geometry: data,
-                symbol: data.symbol,
-                attributes: data,
-                popupTemplate: data.popupTemplate
-            });
-        };
-        var graphicsLayer = new GraphicsLayer();
-
+		};
+        const graphicsLayer = new GraphicsLayer();
 
         dataBuild.forEach(function(data){
           graphicsLayer.add(createGraphic(data));
