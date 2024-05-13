@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function generateCoordinate(numOfCol, colSkip, startZ, a,b,b1,a1) {
+   const result = []
+   let twoPointEachLoop = [a, a1]
+   let twoPointTmpPrev = []
+   let step = 0
+   for (let i = 1; i <= numOfCol; i++) {
+       // tinh toa do t1
+       const x1 = i/numOfCol * (b[0] - a[0]) + a[0]
+       const y1 = i/numOfCol * (b[1] - a[1]) + a[1]
+       // tinh toa do t1'
+       const x2 = i/numOfCol * (b1[0] - a1[0]) + a1[0]
+       const y2 = i/numOfCol * (b1[1] - a1[1]) + a1[1]
+       twoPointTmpPrev = twoPointEachLoop
+       twoPointEachLoop = [[x1, y1], [x2, y2]]
+       if (i <= step) {
+           continue
+       }
+       step = colSkip + i
+       result.push({
+           "type": "Feature",
+           "properties": {
+               "Building name": "VCB Tower",
+               "height": 150,
+               "idb": "7"
+           },
+           "geometry": {
+               "type": "Polygon",
+               "coordinates": [
+                   [
+                       [...twoPointTmpPrev[0], startZ],
+                       [x1, y1, startZ],
+                       [x2, y2, startZ],
+                       [...twoPointTmpPrev[1], startZ],
+                       [...twoPointTmpPrev[0], startZ]
+                   ]
+               ]
+           },
+           "id": i
+       })
+   }
+   return {
+                "type": "FeatureCollection",
+                "generator": "smartcity",
+                "copyright": "Smartcity",
+                "timestamp": "2021-05-27T09:28:58Z",
+                "feature": result
+            }
+}
+
+
+const result = generateCoordinate(69, 3, 0,[106.70520284796795, 10.775762257807393],[106.70527928119033, 10.775584485772107],[106.70527777857302, 10.775583971372601],[106.70520196727985, 10.77576155299645], )
+
+
+console.log(result)
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

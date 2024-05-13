@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+function generateCoordinateFloor(startZ, floor, ...args) {
+            const result = []
+            for (let i = 0; i < floor; i++) {
+                result.push({
+                    "type": "Feature",
+                    "properties": {
+                        "Building name": "VCB Tower",
+                        "height": 150,
+                        "idb": "7"
+                    },
+                    "geometry": {
+                        "type": "Polygon",
+                        "coordinates": [
+                            [
+                                ...args.map((arg) => { 
+                                    return [arg[0], arg[1], startZ + i * 2]
+                                }),
+                                [...args[0], startZ + i * 2]
+                            ]
+                        ]
+                    },
+                    "id": i
+                })
+            }
+            return {
+                "type": "FeatureCollection",
+                "generator": "smartcity",
+                "copyright": "Smartcity",
+                "timestamp": "2021-05-27T09:28:58Z",
+                "features": result
+            }
+        }
+
+        const result = generateCoordinateFloor(120, 12,
+                        [106.7057338127143, 10.775638554633924],
+						[106.70563324743486, 10.775683458757642],
+						[106.70562253082824, 10.775658280148102],
+						[106.70572308703227, 10.775613488554672],
+        )
+
+        console.log(result)
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
