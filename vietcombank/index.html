@@ -25,9 +25,15 @@ html, body, #viewDiv {
             "esri/Map",
             "esri/views/SceneView",
             "esri/layers/GeoJSONLayer",
-            "esri/layers/SceneLayer", "esri/layers/GraphicsLayer", "esri/Graphic", "esri/request"
+            "esri/layers/SceneLayer", 
+			"esri/layers/GraphicsLayer", 
+			"esri/geometry/Mesh",
+			"esri/geometry/Point",
+			"esri/Graphic", 
+			"esri/request",
+			
         ], function (Map, SceneView, GeoJSONLayer, SceneLayer,
-                     GraphicsLayer, Graphic, esriRequest) {
+                     GraphicsLayer, Mesh, Point, Graphic, esriRequest) {
         	var createGraphic = function(data) {
     			return new Graphic({
     				geometry : data,
@@ -36,7 +42,7 @@ html, body, #viewDiv {
     				popupTemplate : data.popupTemplate
     			});
     		};
-			
+					
     		
     		const json_options = {
     				query : {
@@ -52,6 +58,32 @@ html, body, #viewDiv {
 					graphicsLayer.add(createGraphic(data));
 				});
 				map.add(graphicsLayer);
+
+				const car = new Point({
+                x: 106.7059979707848,
+                y: 10.775723205539034,
+                z: 10.2,
+            })
+
+			Mesh.createFromGLTF(car, "./mesh/porsche_gt3_rs.glb")
+			.then(function (geometry) {
+				geometry.scale(3, { origin: car })
+				geometry.rotate(0, 0, 203);
+				const graphic = new Graphic({
+					geometry,
+					symbol: {
+						type: "mesh-3d",
+						symbolLayers: [{
+							type: "fill",
+							size: 10000
+						}]
+					}
+				});
+				sketchLayer.add(graphic)
+			})
+			.catch(console.error);
+		
+		map.add(sketchLayer);
 
 			});
 			// geojson layer
@@ -744,6 +776,12 @@ html, body, #viewDiv {
         });
 
 
+		const sketchLayer = new GraphicsLayer({
+          elevationInfo: {
+            mode: "absolute-height"
+          },
+          title: "Sketched geometries"
+        });
 	
 			const map = new Map({
                 basemap: "topo-vector",
