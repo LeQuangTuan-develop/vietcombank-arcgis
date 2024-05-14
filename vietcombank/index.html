@@ -339,6 +339,26 @@ html, body, #viewDiv {
 
         };
 
+		const topBarGeojsonLayer = new GeoJSONLayer({
+            url: "./topBar.geojson"
+        });
+
+        topBarGeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
             // Column
         const geojsonLayera = new GeoJSONLayer({
             url: "./tru/tru.geojson"
@@ -400,7 +420,8 @@ html, body, #viewDiv {
 				frontWindowGeojsonLayer,
 				mat_trai,
 				mat_sau_trai,
-				mat_sau_phai
+				mat_sau_phai,
+				topBarGeojsonLayer
 				] //end layers
             });
 
