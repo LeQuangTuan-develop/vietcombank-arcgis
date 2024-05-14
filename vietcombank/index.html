@@ -690,6 +690,66 @@ html, body, #viewDiv {
             }
         };
 
+        const mat_phai_block_cuoi_1 = new GeoJSONLayer({
+			url: "./cuaSo/mat_phai_block_cuoi_1.geojson"
+        });
+
+        mat_phai_block_cuoi_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 16,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_trong_block_cuoi_1 = new GeoJSONLayer({
+			url: "./cuaSo/mat_trong_block_cuoi_1.geojson"
+        });
+
+        mat_trong_block_cuoi_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 16,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_trai_block_cuoi_1 = new GeoJSONLayer({
+			url: "./cuaSo/mat_trai_block_cuoi_1.geojson"
+        });
+
+        mat_trai_block_cuoi_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 16,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
 		const mep_trai_1 = new GeoJSONLayer({
 			url: "./cuaSo/mep_trai_1.geojson"
         });
@@ -822,6 +882,9 @@ html, body, #viewDiv {
 				mep_trai,
 				mep_phai_1,
 				mep_trai_1,
+				mat_phai_block_cuoi_1,
+                mat_trong_block_cuoi_1,
+                mat_trai_block_cuoi_1,
 					topBarGeojsonLayer,
 				] //end layers
             });
