@@ -7,8 +7,8 @@
 		{
 			"type": "Feature",
 			"properties": {
-				"Building name": "VCB Tower",
-				"height": 150,
+				"Building name": "Trụ 4",
+				"height": 30,
 				"idb": "7"
 			},
 			"geometry": {

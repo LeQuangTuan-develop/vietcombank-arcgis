@@ -7,8 +7,8 @@
 		{
 			"type": "Feature",
 			"properties": {
-				"Building name": "Tang 2",
-				"height": 30,
+				"Building name": "Đỉnh tòa nhà",
+				"height": 150,
 				"idb": "7"
 			},
 			"geometry": {

@@ -1073,11 +1073,188 @@ html, body, #viewDiv {
             }
         };
 
+        const mat_truoc_1 = new GeoJSONLayer({
+			url: "./cuaSo/mat_truoc_1.geojson"
+        });
+
+        mat_truoc_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
         const mep_trai_ngang = new GeoJSONLayer({
 			url: "./cuaSoNgang/mep_trai.geojson"
         });
 
         mep_trai_ngang.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const dinh_1 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_1.geojson"
+        });
+
+        dinh_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const dinh_2 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_2.geojson"
+        });
+
+        dinh_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const dinh_3 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_3.geojson"
+        });
+
+        dinh_3.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+        const dinh_6 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_6.geojson"
+        });
+
+        dinh_6.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+        const dinh_4 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_4.geojson"
+        });
+
+        dinh_4.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+        const dinh_5 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_5.geojson"
+        });
+
+        dinh_5.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const dinh_7 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_7.geojson"
+        });
+
+        dinh_7.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const dinh_8 = new GeoJSONLayer({
+			url: "./cuaSoNgang/dinh_8.geojson"
+        });
+
+        dinh_8.renderer = {
             type: "simple",
             symbol: {
                 type: "polygon-3d",
@@ -1361,11 +1538,20 @@ html, body, #viewDiv {
                 mat_phai_ngang_4,
                 mat_sau_phai_ngang_4,
                 mat_sau_trai_ngang_4,
+                dinh_1,
+                dinh_2,
+                dinh_3,
+                dinh_4,
+                dinh_5,
+                dinh_6,
+                dinh_7,
+                dinh_8,
+                mat_truoc_1,
                 mat_phai_4,
                 mat_trai_4,
                 sau_lung_4_1,
                 sau_lung_4_2,
-					topBarGeojsonLayer,
+               
 				] //end layers
             });
 
