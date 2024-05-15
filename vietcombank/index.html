@@ -21,6 +21,21 @@ html, body, #viewDiv {
 <script src="https://js.arcgis.com/4.29/"></script>
 
 <script>
+    var map;
+    var list_points = [];
+    var string_points = "";
+
+    function copyTextToClipboard(text) {
+      if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(text);
+        return;
+      }
+      navigator.clipboard.writeText(text).then(function() {
+        console.log('Async: Copying to clipboard was successful!');
+      }, function(err) {
+        console.error('Async: Could not copy text: ', err);
+      });
+    }
         require([
             "esri/Map",
             "esri/views/SceneView",
@@ -150,7 +165,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -175,7 +190,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -200,7 +215,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -225,7 +240,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -250,7 +265,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -275,7 +290,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 2,
 							material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                             },
                             edges: {
                                 type: "solid",
@@ -301,7 +316,7 @@ html, body, #viewDiv {
 							size: 0.2,
 							type: "extrude",
 							material: {
-								color: [255, 255, 255, 1]
+								color: [255,223,0]
 							}
 						}
 					]
@@ -325,7 +340,7 @@ html, body, #viewDiv {
 							type: "extrude",
 							size: 40,
 							material: {
-								color: [255, 255, 255],
+								color: [207,181,59],
 							}
 						}
 					]
@@ -347,12 +362,271 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 64,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
             }
+        };
 
+        const frontWindowMiddleGeojsonLayer = new GeoJSONLayer({
+            url: "./cuaSo/frontWindowMiddle.geojson"
+        });
+
+        frontWindowMiddleGeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 24,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const frontWindowMiddle1GeojsonLayer = new GeoJSONLayer({
+            url: "./cuaSo/frontWindowMiddle1.geojson"
+        });
+
+        frontWindowMiddle1GeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 80,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const frontWindowMiddle2GeojsonLayer = new GeoJSONLayer({
+            url: "./cuaSo/frontWindowMiddle2.geojson"
+        });
+
+        frontWindowMiddle2GeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 90,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const frontWindowMiddle3GeojsonLayer = new GeoJSONLayer({
+            url: "./cuaSo/frontWindowMiddle3.geojson"
+        });
+
+        frontWindowMiddle3GeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 100,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const frontWindowCenterGeojsonLayer = new GeoJSONLayer({
+            url: "./cuaSo/frontWindowCenter.geojson"
+        });
+
+        frontWindowCenterGeojsonLayer.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 100,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_trai_1 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_trai_1.geojson"
+        });
+
+        mat_truoc_trai_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_phai_1 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_phai_1.geojson"
+        });
+
+        mat_truoc_phai_1.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_trai_4 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_trai_4.geojson"
+        });
+
+        mat_truoc_trai_4.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_phai_3 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_phai_3.geojson"
+        });
+
+        mat_truoc_phai_3.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_phai_4 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_phai_4.geojson"
+        });
+
+        mat_truoc_phai_4.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_trai_3 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_trai_3.geojson"
+        });
+
+        mat_truoc_trai_3.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_trai_2 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_trai_2.geojson"
+        });
+
+        mat_truoc_trai_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_truoc_phai_2 = new GeoJSONLayer({
+            url: "./cuaSoNgang/mat_truoc_phai_2.geojson"
+        });
+
+        mat_truoc_phai_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255,223,0]
+                        }
+                    }
+                ]
+            }
         };
 
         const glassDoorGeojsonLayer = new GeoJSONLayer({
@@ -368,7 +642,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 20,
                         material: {
-                            color: [135,206,250,0.8],
+                            color: [240,230,140, 0.8]
                         },
                     }
                 ]
@@ -389,7 +663,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 30,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -411,7 +685,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 30,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -433,7 +707,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 30,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -453,7 +727,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 30,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -473,7 +747,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 50,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -493,7 +767,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 50,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -513,7 +787,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 50,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -533,7 +807,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 50,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -553,7 +827,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 20,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -573,7 +847,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 20,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -593,7 +867,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 20,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -613,7 +887,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 20,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -633,7 +907,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -653,7 +927,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -673,7 +947,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -693,7 +967,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -713,7 +987,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 64,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -733,7 +1007,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 64,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -753,7 +1027,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 80,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -773,7 +1047,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 16,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -793,7 +1067,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 16,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -813,7 +1087,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 16,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -833,7 +1107,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 80,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -852,9 +1126,9 @@ html, body, #viewDiv {
                 symbolLayers: [
                     {
                         type: "extrude",
-                        size: 30,
+                        size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -875,7 +1149,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -895,7 +1169,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -916,7 +1190,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 10,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -936,7 +1210,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -956,7 +1230,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -976,7 +1250,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -996,7 +1270,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1016,7 +1290,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1036,7 +1310,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1056,7 +1330,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1076,7 +1350,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1096,7 +1370,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1116,7 +1390,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1136,7 +1410,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1156,7 +1430,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1176,7 +1450,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1196,7 +1470,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1216,7 +1490,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1235,7 +1509,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1254,7 +1528,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1273,7 +1547,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1293,7 +1567,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1313,7 +1587,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1333,7 +1607,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1353,7 +1627,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1373,7 +1647,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1393,7 +1667,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1413,7 +1687,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1433,7 +1707,7 @@ html, body, #viewDiv {
                         type: "extrude",
                         size: 0.2,
                         material: {
-                            color: [255, 255, 255, 1]
+                            color: [255,223,0]
                         }
                     }
                 ]
@@ -1463,7 +1737,7 @@ html, body, #viewDiv {
                             type: "extrude",
                             size: 0.2,
                             material: {
-                                color: [255, 255, 255, 1]
+                                color: [255,223,0]
                             }
                         }
                     ]
@@ -1508,7 +1782,7 @@ html, body, #viewDiv {
                             type: "extrude",
                             size: 20,
                             material: {
-                                color: [255, 255, 255, 1]
+                                color: [255,223,0]
                             },
                         }
                     ]
@@ -1601,7 +1875,19 @@ html, body, #viewDiv {
                 mat_trai_4,
                 sau_lung_4_1,
                 sau_lung_4_2,
-               
+                frontWindowMiddleGeojsonLayer,
+                frontWindowMiddle1GeojsonLayer,
+                frontWindowMiddle2GeojsonLayer,
+                frontWindowMiddle3GeojsonLayer,
+                frontWindowCenterGeojsonLayer,
+                mat_truoc_trai_1,
+                mat_truoc_phai_1,
+                mat_truoc_trai_4,
+                mat_truoc_phai_4,
+                mat_truoc_phai_3,
+                mat_truoc_trai_3,
+                mat_truoc_trai_2,
+                mat_truoc_phai_2,
 				] //end layers
             });
 
@@ -1615,6 +1901,16 @@ html, body, #viewDiv {
                 }
             });
             view.popup.defaultPopupTemplateEnabled = true;
+            view.on("click", function(event) { // Listen for the click event
+            view.hitTest(event).then(function(hitTestResults) { // Search for features where the user clicked
+            if (hitTestResults.results) {        
+                list_points.push([event.mapPoint.longitude, event.mapPoint.latitude]);
+                string_points += "[" + event.mapPoint.longitude + ", " + event.mapPoint.latitude + "],"
+                copyTextToClipboard(string_points);
+                // console.log(list_points);
+            }
+            })
+        });
         });
 
     </script>
