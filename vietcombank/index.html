@@ -75,30 +75,7 @@ html, body, #viewDiv {
 				map.add(graphicsLayer);
 
 
-            const city = new Point({
-                x: 106.70195360873392,
-                y: 10.776550345525626,
-                z: 7,
-            })
-
-		Mesh.createFromGLTF(city, "./mesh/city_hall.glb")
-			.then(function (geometry) {
-				geometry.scale(1, { origin: city })
-				geometry.rotate(0, 0, 100);
-				const graphic = new Graphic({
-					geometry,
-					symbol: {
-						type: "mesh-3d",
-						symbolLayers: [{
-							type: "fill",
-							size: 100
-						}]
-					}
-				});
-				sketchLayer.add(graphic)
-			})
-
-        const house = new Point({
+            const house = new Point({
                 x: 106.7063995690535,
                 y: 10.775340322904503,
                 z: 7,
