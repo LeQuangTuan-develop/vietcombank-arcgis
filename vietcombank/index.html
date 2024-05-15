@@ -1050,6 +1050,117 @@ html, body, #viewDiv {
             }
         };
 
+        const mat_trai_ngang_2 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_trai_2.geojson"
+        });
+
+        mat_trai_ngang_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_phai_ngang_2 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_phai_2.geojson"
+        });
+
+        mat_phai_ngang_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_sau_trai_ngang_2 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_sau_trai_2.geojson"
+        });
+
+        mat_sau_trai_ngang_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_sau_phai_ngang_2 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_sau_phai_2.geojson"
+        });
+
+        mat_sau_phai_ngang_2.renderer = {
+            type: "simple",
+            symbol: {
+                type: "polygon-3d",
+                symbolLayers: [
+                    {
+                        type: "extrude",
+                        size: 0.2,
+                        material: {
+                            color: [255, 255, 255, 1]
+                        }
+                    }
+                ]
+            }
+        };
+
+        const mat_trai_ngang_4 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_trai_4.geojson"
+        });
+        const mat_phai_ngang_4 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_phai_4.geojson"
+        });
+        const mat_sau_trai_ngang_4 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_sau_trai_4.geojson"
+        });
+        const mat_sau_phai_ngang_4 = new GeoJSONLayer({
+			url: "./cuaSoNgang/mat_sau_phai_4.geojson"
+        });
+
+        [mat_trai_ngang_4, mat_phai_ngang_4, mat_sau_phai_ngang_4, mat_sau_trai_ngang_4].forEach(item => {
+            item.renderer = {
+                type: "simple",
+                symbol: {
+                    type: "polygon-3d",
+                    symbolLayers: [
+                        {
+                            type: "extrude",
+                            size: 0.2,
+                            material: {
+                                color: [255, 255, 255, 1]
+                            }
+                        }
+                    ]
+                }
+            };
+        })
+
             // Column
         const geojsonLayera = new GeoJSONLayer({
             url: "./tru/tru.geojson"
@@ -1159,6 +1270,14 @@ html, body, #viewDiv {
                 mep_phai_ngang_1,
                 mep_trai_ngang_1,
                 glassDoorGeojsonLayer,
+                mat_trai_ngang_2,
+                mat_phai_ngang_2,
+                mat_sau_trai_ngang_2,
+                mat_sau_phai_ngang_2,
+                mat_trai_ngang_4, 
+                mat_phai_ngang_4, 
+                mat_sau_phai_ngang_4, 
+                mat_sau_trai_ngang_4,
 				] //end layers
             });
 
